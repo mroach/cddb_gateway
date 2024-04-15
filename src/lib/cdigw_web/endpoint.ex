@@ -10,8 +10,9 @@ defmodule CdigwWeb.Endpoint do
     CdigwWeb.CddbPlug.call(conn, %{})
   end
 
-  match "/mscd/" do
-    CdigwWeb.MscdPlug.call(conn, %{})
+  # Emulation of the pre-configured tunes.com service
+  get "/tunes-cgi2/tunes/disc_info/203/cd=:cd" do
+    CdigwWeb.MscdPlug.call(conn, %{cd: cd})
   end
 
   match "/" do

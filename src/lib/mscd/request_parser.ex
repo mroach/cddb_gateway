@@ -21,7 +21,7 @@ defmodule Mscd.RequestParser do
   """
   def parse_query(query) when is_binary(query) do
     query
-    |> String.split(" ", trim: true)
+    |> String.split(~r/[\s+]/, trim: true)
     |> Enum.map(&String.to_integer(&1, 16))
     |> parse_query()
   end
