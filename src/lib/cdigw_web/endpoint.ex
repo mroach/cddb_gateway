@@ -10,13 +10,18 @@ defmodule CdigwWeb.Endpoint do
     CdigwWeb.CddbPlug.call(conn, %{})
   end
 
-  match "/" do
+  # Emulation of the pre-configured tunes.com service
+  get "/tunes-cgi2/tunes/disc_info/203/cd=:cd" do
+    CdigwWeb.MscdPlug.call(conn, %{cd: cd})
+  end
+
+  get "/" do
     conn
     |> put_resp_content_type("text/html")
     |> send_file(200, "priv/static/index.html")
   end
 
-  match "/robots.txt" do
+  get "/robots.txt" do
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, ~S"""
